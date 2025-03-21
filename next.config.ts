@@ -17,6 +17,11 @@ const nextConfig: NextConfig = {
         hostname: "www.speedreadinglounge.com",
         protocol: "https",
         port: "",
+      },
+      {
+        hostname: "https://web.telegram.org",
+        protocol: "https",
+        port: "",
       }
     ],
   },
