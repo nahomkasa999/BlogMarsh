@@ -4,12 +4,12 @@ import { redirect } from "next/navigation"
 import { prisma } from "./utils/db"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-export async function handlesubmission(formdata: FormData) {
+export async function handleSubmission(formdata: FormData) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
- 
+
   if (!user || !user.id) {
-    return redirect("/api/auth/login")
+    return redirect("/api/auth/login");
   }
 
   const { title, content, url } = Object.fromEntries(formdata.entries()) as {
@@ -18,7 +18,7 @@ export async function handlesubmission(formdata: FormData) {
     url: string;
   };
 
-  const data = await prisma.blogPost.create({
+  await prisma.blogPost.create({
     data: {
       title,
       content,
@@ -29,5 +29,5 @@ export async function handlesubmission(formdata: FormData) {
     },
   });
 
-  redirect("/Dashboard");
+  return redirect("/Dashboard");
 }
