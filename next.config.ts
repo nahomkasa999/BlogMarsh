@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         port: "",
       },
+      {
+        hostname: "www.speedreadinglounge.com",
+        protocol: "https",
+        port: "",
+      }
     ],
   },
 };

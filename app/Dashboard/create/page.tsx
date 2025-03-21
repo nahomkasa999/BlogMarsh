@@ -9,7 +9,7 @@ import {
 import {Textarea} from "@/components/ui/textarea"
 import {Label} from "@/components/ui/label"
 import {Input} from "@/components/ui/input"
-import {handlesubmission} from "../../actions"
+import {handleSubmission} from "../../actions"
 import { SubmitButton } from "@/components/general/Submitbutton"
 
 export default function CreateBlogroute(){
@@ -21,7 +21,7 @@ export default function CreateBlogroute(){
                     <CardDescription>Write your blog here</CardDescription>
                 </CardHeader> 
                 <CardContent>
-                    <form className="flex flex-col gap-4" action={handlesubmission}>
+                    <form className="flex flex-col gap-4" action={handleSubmission}>
                         <div className="flex flex-col gap-2">
                             <Label>Title</Label>
                             <Input type="text" className="border border-gray-300 p-1" name = "title" />
