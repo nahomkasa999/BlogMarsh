@@ -7,20 +7,7 @@ import { notFound } from "next/navigation";
 
 export const revalidate = 200;
 
-interface BlogPost {
-  id: string;
-  title: string;
-  content: string;
-  imageUrl: string;
-  authorId: string;
-  authorName: string;
-  authorImage: string;
-  createdAt: Date;
-  updatedAt: Date;
-  likes: number;
-}
-
-async function getData(id: string): Promise<BlogPost> {
+async function getData(id) {
   try {
     const data = await prisma.blogPost.findUnique({
       where: {
@@ -33,18 +20,13 @@ async function getData(id: string): Promise<BlogPost> {
     }
 
     return data;
-  } catch (error) {
-    console.error("Error fetching blog post:", error);
+  } catch (err) {
+    console.error("Error fetching blog post:", err);
     throw new Error("Failed to fetch blog post");
   }
 }
 
-type Props = {
-  params: Promise<{ id: string }>;
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default async function BlogPostPage({ params, searchParams }: Props) {
+export default async function BlogPostPage({ params }) {
   const { id } = await params;
   const data = await getData(id);
 

@@ -5,7 +5,6 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { BlogPostCard } from "@/components/general/BlogpostCard";
 
 async function getData(userId: string) {
-
   const data = await prisma.blogPost.findMany({
     select: {
       id: true,
@@ -29,29 +28,15 @@ async function getData(userId: string) {
   return data;
 }
 
-async function DeletePost(id: string) {
-   const data = await prisma.blogPost.delete({
-    where: {
-      id: id,
-    },
-  });
-  
-
-}
-
 export default async function DashboardRoute() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-
   const data = await getData(user?.id);
 
-  const value = true
   return (
     <div>
       <div className="flex items-center justify-between mb-4 mt-8">
         <h2 className="text-2xl font-bold">Your Blog Articles</h2>
-
-     
 
         <Link 
           className={buttonVariants({ 
@@ -66,7 +51,7 @@ export default async function DashboardRoute() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.map((item) => (
-          <BlogPostCard data={item} key={item.id}  />
+          <BlogPostCard data={item} key={item.id} />
         ))}
       </div>
     </div>

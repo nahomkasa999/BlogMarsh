@@ -56,7 +56,8 @@ export async function handleSubmission(formdata: FormData) {
     });
 
     return { success: "Post created successfully" };
-  } catch (error) {
+  } catch (_err) {
+    console.error("Failed to create post:", _err);
     return { error: "Failed to create post" };
   }
 }
@@ -85,7 +86,8 @@ export async function updateBlogPost(id: string, formData: FormData) {
       },
     });
     return { success: "Blog post updated successfully" };
-  } catch (error) {
+  } catch (_err) {
+    console.error("Failed to update blog post:", _err);
     return { error: "Failed to update blog post" };
   }
 }
@@ -103,7 +105,8 @@ export async function deleteBlogPost(id: string) {
       where: { id },
     });
     return { success: "Blog post deleted successfully" };
-  } catch (error) {
+  } catch (_err) {
+    console.error("Failed to delete blog post:", _err);
     return { error: "Failed to delete blog post" };
   }
 }

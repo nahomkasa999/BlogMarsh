@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { buttonVariants } from "../ui/button";
 import {
   RegisterLink,

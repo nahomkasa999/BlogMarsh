@@ -28,7 +28,8 @@ export  function CardEdit({ postId }: CardEditProps) {
              toast.success(result.success);
              router.refresh();
            }
-         } catch (error) {
+         } catch (_err) {
+           console.error("Failed to delete post:", _err);
            toast.error("Failed to delete post");
          } finally {
            setIsDeleting(false);

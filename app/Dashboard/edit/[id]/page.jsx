@@ -10,7 +10,7 @@ import { EditBlogForm } from "@/components/general/EditBlogForm"
 import { prisma } from "@/app/utils/db"
 import { notFound } from "next/navigation"
 
-async function getBlogPost(id: string) {
+async function getBlogPost(id) {
     const post = await prisma.blogPost.findUnique({
         where: { id }
     });
@@ -19,15 +19,9 @@ async function getBlogPost(id: string) {
     return post;
 }
 
-type Props = {
-    params: {
-        id: string;
-    };
-    searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default async function EditBlogRoute({ params, searchParams }: Props) {
-    const post = await getBlogPost(params.id);
+export default async function EditBlogRoute({ params }) {
+    const { id } = await params;
+    const post = await getBlogPost(id);
 
     return (
         <div className="flex justify-center items-center mt-6">
@@ -37,7 +31,7 @@ export default async function EditBlogRoute({ params, searchParams }: Props) {
                     <CardDescription>Make changes to your blog post</CardDescription>
                 </CardHeader> 
                 <CardContent>
-                    <EditBlogForm post={post} postId={params.id} />
+                    <EditBlogForm post={post} postId={id} />
                 </CardContent>
             </Card>
         </div>
