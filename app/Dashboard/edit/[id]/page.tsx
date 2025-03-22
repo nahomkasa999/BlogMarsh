@@ -19,8 +19,15 @@ async function getBlogPost(id: string) {
     return post;
 }
 
-export default async function EditBlogRoute({ params }: { params: { id: string } }) {
-    const post = await getBlogPost(params?.id);
+type Props = {
+    params: {
+        id: string;
+    };
+    searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default async function EditBlogRoute({ params, searchParams }: Props) {
+    const post = await getBlogPost(params.id);
 
     return (
         <div className="flex justify-center items-center mt-6">

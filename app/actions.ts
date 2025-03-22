@@ -18,18 +18,47 @@ export async function handleSubmission(formdata: FormData) {
     url: string;
   };
 
-  await prisma.blogPost.create({
-    data: {
-      title,
-      content,
-      imageUrl: url,
-      authorId: user.id,
-      authorName: user.given_name || "Anonymous",
-      authorImage: user.picture || "",
-    },
-  });
+  // Validation
+  if (!title.trim()) {
+    return { error: "Title is required" };
+  }
 
-  return redirect("/Dashboard");
+  if (title.length < 3) {
+    return { error: "Title must be at least 3 characters long" };
+  }
+
+  if (title.length > 100) {
+    return { error: "Title must be less than 100 characters" };
+  }
+
+  if (!content.trim()) {
+    return { error: "Content is required" };
+  }
+
+  if (content.length < 50) {
+    return { error: "Content must be at least 50 characters long" };
+  }
+
+  if (!url.trim()) {
+    return { error: "Image URL is required" };
+  }
+
+  try {
+    await prisma.blogPost.create({
+      data: {
+        title,
+        content,
+        imageUrl: url,
+        authorId: user.id,
+        authorName: user.given_name || "Anonymous",
+        authorImage: user.picture || "",
+      },
+    });
+
+    return { success: "Post created successfully" };
+  } catch (error) {
+    return { error: "Failed to create post" };
+  }
 }
 
 export async function updateBlogPost(id: string, formData: FormData) {

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Input } from '../ui/input';
 import Image from 'next/image';
 import { Button } from '../ui/button';
-import { Upload, X } from 'lucide-react';
+import { Loader2 , X } from 'lucide-react';
 
 interface ImageUploadProps {
   onImageUrl: (url: string) => void;
@@ -14,6 +14,7 @@ interface ImageUploadProps {
 export function ImageUpload({ onImageUrl, defaultImage }: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(defaultImage || null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -77,13 +78,27 @@ export function ImageUpload({ onImageUrl, defaultImage }: ImageUploadProps) {
             alt="Preview"
             fill
             className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={true}
+            unoptimized
+            onError={() => {
+              setError(true);
+              setPreview(null);
+              onImageUrl('');
+            }}
           />
         </div>
       )}
 
+      {error && (
+        <p className="text-sm text-red-500">
+          Failed to load image. Please try uploading again.
+        </p>
+      )}
+
       {loading && (
         <div className="flex items-center justify-center">
-          <Upload className="h-6 w-6 animate-spin" />
+          <Loader2 className="animate-spin w-6 h-6 text-gray-500" />
         </div>
       )}
     </div>

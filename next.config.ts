@@ -4,20 +4,19 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: "https",
+        hostname: "mzpzaz5m0ozohuhg.public.blob.vercel-storage.com",
+        port: "",
+      },
+      {
+        protocol: "https",
         hostname: "lh3.googleusercontent.com",
-        protocol: "https",
         port: "",
-      },
+      },//lh3.google
       {
-        hostname: "geekswithblogs.net",
-        protocol: "https",
-        port: "",
-      },
-      {
-        hostname: "www.speedreadinglounge.com",
-        protocol: "https",
-        port: "",
-      }
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com',
+      },// usercontent.com
     ],
   },
 };

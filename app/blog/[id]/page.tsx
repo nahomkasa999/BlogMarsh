@@ -7,23 +7,44 @@ import { notFound } from "next/navigation";
 
 export const revalidate = 200;
 
-async function getData(id: string) {
-  const data = await prisma.blogPost.findUnique({
-    where: {
-      id: id,
-    },
-  });
-
-  if (!data) {
-    return notFound();
-  }
-
-  return data;
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+  authorId: string;
+  authorName: string;
+  authorImage: string;
+  createdAt: Date;
+  updatedAt: Date;
+  likes: number;
 }
 
-type Params = Promise<{ id: string }>;
+async function getData(id: string): Promise<BlogPost> {
+  try {
+    const data = await prisma.blogPost.findUnique({
+      where: {
+        id: id,
+      },
+    });
 
-export default async function IdPage({ params }: { params: Params }) {
+    if (!data) {
+      notFound();
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching blog post:", error);
+    throw new Error("Failed to fetch blog post");
+  }
+}
+
+type Props = {
+  params: Promise<{ id: string }>;
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default async function BlogPostPage({ params, searchParams }: Props) {
   const { id } = await params;
   const data = await getData(id);
 
@@ -52,7 +73,7 @@ export default async function IdPage({ params }: { params: Params }) {
               year: "numeric",
               month: "long",
               day: "numeric",
-            }).format(data.createdAt)}
+            }).format(new Date(data.createdAt))}
           </p>
         </div>
       </div>
@@ -67,10 +88,11 @@ export default async function IdPage({ params }: { params: Params }) {
         />
       </div>
 
-      <Card className="border-none shadow-none">
+      <Card className="border-none shadow-none dark:bg-[#1a1a2e]">
         <CardContent className="prose prose-lg max-w-none dark:prose-invert">
           <div 
             dangerouslySetInnerHTML={{ __html: data.content }} 
+            className="dark:text-gray-300"
           />
         </CardContent>
       </Card>

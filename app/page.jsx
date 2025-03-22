@@ -7,29 +7,21 @@ export const revalidate = 60;
 
 async function getData() {
   const data = await prisma.blogPost.findMany({
-    select: {
-      title: true,
-      content: true,
-      imageUrl: true,
-      authorImage: true,
-      authorName: true,
-      id: true,
-      createdAt: true,
-      authorId: true,
-      updatedAt: true,
-    },
     orderBy: {
       createdAt: "desc",
     },
   });
-
   return data;
 }
 
-export default function Home() {
+getData()
+export default function Home() {  
   return (
     <div className="py-6">
       <h1 className="text-3xl font-bold tracking-tight mb-8">Latest posts</h1>
+
+      <hr/>
+      <br/>
 
       <Suspense fallback={<BlogPostsGrid />}>
         <BlogPosts />

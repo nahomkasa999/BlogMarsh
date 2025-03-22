@@ -259,3 +259,8 @@
 .dark .prose strong {
   color: #f3f4f6;
 }
+
+.writing-mode-vertical {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+}

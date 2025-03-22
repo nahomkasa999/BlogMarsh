@@ -7,6 +7,18 @@ import { BlogPostCard } from "@/components/general/BlogpostCard";
 async function getData(userId: string) {
 
   const data = await prisma.blogPost.findMany({
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      imageUrl: true,
+      authorImage: true,
+      authorName: true,
+      createdAt: true,
+      authorId: true,
+      updatedAt: true,
+      likes: true
+    },
     where: {
       authorId: userId,
     },
@@ -39,8 +51,16 @@ export default async function DashboardRoute() {
       <div className="flex items-center justify-between mb-4 mt-8">
         <h2 className="text-2xl font-bold">Your Blog Articles</h2>
 
-        <Link className={buttonVariants()} href="/Dashboard/create">
-          Create Post
+     
+
+        <Link 
+          className={buttonVariants({ 
+            variant: "ghost",
+            className: "font-[800] bg-[#ff0000b0] text-white hover:bg-[#ff0000b0]/90"
+          })} 
+          href="/Dashboard/create"
+        >
+          Create
         </Link>
       </div>
 
