@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import {CardEdit} from "../general/Editing"
+
 
 interface IAppProps {
   data: {
@@ -16,6 +20,8 @@ interface IAppProps {
 }
 
 export function BlogPostCard({ data }: IAppProps) {
+
+
   return (
     <div className="group relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-md transition-all hover:shadow-lg">
       <Link href={`/blog/${data.id}`} className="block">
@@ -34,26 +40,30 @@ export function BlogPostCard({ data }: IAppProps) {
             {data.title}
           </h2>
         </Link>
-        <p className="text-gray-500 mt-2 line-clamp-3">{data.content}</p>
-        <div className=" flex items-center justify-between h-auto mt-4 mr-4 overflow-hidden">
+        <div 
+          className="text-gray-500 mt-2 line-clamp-3 prose prose-sm"
+          dangerouslySetInnerHTML={{ __html: data.content }}
+        />
+
+        <CardEdit postId={data.id} />
+        
+        <div className="flex items-center justify-between h-auto mt-4 mr-4 overflow-hidden">
           <div className="flex items-center gap-2 overflow-hidden">
-            <div className="">
+            <div>
               <Image
                 src={data.authorImage}
                 alt={data.authorName}
-                className="rounded-full object-cover transition-transfrom duration-300 group-hover:border-blue-700 "
+                className="rounded-full object-cover transition-transfrom duration-300 group-hover:border-blue-700"
                 width={30}
                 height={30}
               />
             </div>
-            <p className="text-gray-400 ">{data.authorName}</p>
+            <p className="text-gray-400">{data.authorName}</p>
           </div>
           <p className="text-gray-400">
             {new Intl.DateTimeFormat("en-US", {
-                dateStyle: "medium",
-                }).format(new Date(data.createdAt))
-
-            }
+              dateStyle: "medium",
+            }).format(new Date(data.createdAt))}
           </p>
         </div>
       </div>

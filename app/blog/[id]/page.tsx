@@ -68,8 +68,10 @@ export default async function IdPage({ params }: { params: Params }) {
       </div>
 
       <Card className="border-none shadow-none">
-        <CardContent className="border-none ">
-          <p className="text-gray-700">{data.content}</p>
+        <CardContent className="prose prose-lg max-w-none dark:prose-invert">
+          <div 
+            dangerouslySetInnerHTML={{ __html: data.content }} 
+          />
         </CardContent>
       </Card>
     </div>

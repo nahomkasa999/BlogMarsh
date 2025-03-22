@@ -120,3 +120,142 @@
     @apply bg-background text-foreground;
   }
 }
+
+.ProseMirror {
+  outline: none;
+  min-height: 200px;
+  padding: 1rem;
+  background: transparent;
+  border-radius: 0.5rem;
+}
+
+.ProseMirror:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+
+.ProseMirror p {
+  margin: 0.5em 0;
+  line-height: 1.6;
+}
+
+.ProseMirror h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin: 1em 0 0.5em;
+  color: #111827;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0.83em 0;
+  color: #111827;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.2em;
+  margin: 0.5em 0;
+}
+
+.ProseMirror blockquote {
+  margin-left: 0;
+  padding-left: 1em;
+  border-left: 3px solid #e5e7eb;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #9ca3af;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  font-style: italic;
+}
+
+.ProseMirror ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+}
+
+.ProseMirror ul li, 
+.ProseMirror ol li {
+  margin: 0.5em 0;
+}
+
+/* Add these styles for blog post content */
+.prose {
+  max-width: 65ch;
+}
+
+.prose h1 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose h2 {
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose img {
+  margin: 2em 0;
+  border-radius: 0.5rem;
+}
+
+.prose blockquote {
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1.5em 0;
+  color: #4b5563;
+}
+
+.prose ul, .prose ol {
+  margin: 1.25em 0;
+  padding-left: 1.625em;
+}
+
+.prose li {
+  margin: 0.5em 0;
+}
+
+.prose-lg {
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.dark .prose {
+  color: #e5e7eb;
+}
+
+.dark .prose blockquote {
+  border-left-color: #374151;
+  color: #9ca3af;
+}
+
+.dark .prose a {
+  color: #60a5fa;
+}
+
+.dark .prose strong {
+  color: #f3f4f6;
+}

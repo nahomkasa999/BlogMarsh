@@ -14,8 +14,17 @@ async function getData(userId: string) {
       createdAt: "desc",
     },
   });
-
   return data;
+}
+
+async function DeletePost(id: string) {
+   const data = await prisma.blogPost.delete({
+    where: {
+      id: id,
+    },
+  });
+  
+
 }
 
 export default async function DashboardRoute() {
@@ -24,6 +33,7 @@ export default async function DashboardRoute() {
 
   const data = await getData(user?.id);
 
+  const value = true
   return (
     <div>
       <div className="flex items-center justify-between mb-4 mt-8">
@@ -36,7 +46,7 @@ export default async function DashboardRoute() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.map((item) => (
-          <BlogPostCard data={item} key={item.id} />
+          <BlogPostCard data={item} key={item.id}  />
         ))}
       </div>
     </div>
